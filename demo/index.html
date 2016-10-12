@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>patternpad demo</title>
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+  html, body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: #fff;
+  }
+
+  .patternpad-container {
+    position: relative;
+    left: 5%;
+    top: 0px;
+    margin-bottom: 5%;
+    width: 90%;
+    height: 45%;
+    background: #eee;
+    -webkit-transform: translateY(5%);
+  }
+
+  .line {
+    position: absolute;
+    height: 6px;
+    background: #000;
+    border-radius: 3px;
+    -webkit-transform-origin: top left;
+  }
+
+  .line.is-first,
+  .line.is-last {
+    visibility: hidden;
+  }
+
+  .dot {
+    position: absolute;
+    -webkit-transform: translate(-50%,-50%);
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: #aaa;
+  }
+
+  .dot .core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    height: 20px;
+    width: 20px;
+    background: #000;
+    border-radius: 50%;
+  }
+
+  .dot.active .core {
+    background: #ff0;
+  }
+
+</style>
+
+<body>
+  <div class="patternpad-container container-1"></div>
+  <div class="patternpad-container container-2"></div>
+</body>
+
+<script src="fragmental/dist/fragmental.min.js"></script>
+<script src="fragmental/src/fragments/events.js"></script>
+<script src="fragmental/src/fragments/pubsub.js"></script>
+<script src="jquery/dist/jquery.min.js"></script>
+<script src="patternpad.js"></script>
+
+<script>
+  // PATTERN PAL 2
+
+  var patternPal1 = new PatternPad({
+    columns: 3,
+    rows: 3,
+    multipleHits: false,
+    container: document.getElementsByClassName('container-1')[0],
+    dot: '<div class="dot"> \
+            <div class="core"></div> \
+          </div>'
+  });
+
+  patternPal1.addEventListener(patternPal1.EVENTS.line.end, function(event) {
+    console.log('pad #1')
+    console.log(event.data);
+  });
+
+  // PATTERN PAL 2
+
+  var patternPal2 = new PatternPad({
+    columns: 3,
+    rows: 3,
+    multipleHits: false,
+    container: document.getElementsByClassName('container-2')[0],
+    dot: '<div class="dot"> \
+            <div class="core"></div> \
+          </div>'
+  });
+
+  patternPal2.addEventListener(patternPal2.EVENTS.line.end, function(event) {
+    console.log('pad #2')
+    console.log(event.data);
+  });
+
+  patternPal2.addEventListener(patternPal2.EVENTS.destroy.done, function(event) {
+    console.log('destroy done');
+  });
+
+  // patternPal2.destroy();
+
+  console.log(patternPal2);
+</script>
+
+</html>

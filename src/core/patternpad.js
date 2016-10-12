@@ -1,0 +1,1 @@
+window.PatternPad = fragmental.Class('PatternPad');
